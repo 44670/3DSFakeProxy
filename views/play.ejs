@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Video Share</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row" id="video">
+        </div>
+        <div class="row">
+            <a href="/" class="btn btn-primary btn-lg btn-block col-md-12" role="button">Back</a>
+        </div>
+    </div>
+    <script>
+        var fileName = '';
+        var vtt = false;
+        var str = location.search;
+        if (str.length > 0) {
+            var t = str.substr(1).split('&');
+            for (i in t) {
+                var opt = t[i].split('=');
+                if (opt[0] == 'file') {
+                    fileName = opt[1];
+                }
+                if (opt[0] == 'vtt') {
+                    vtt = opt[1];
+                }
+            }
+        }
+
+        var html = '<video  width="320" height="140"  controls="controls">'
+        html += '<source src="' + fileName + '" type="video/mp4">';
+        if (vtt) {
+            html += '<track src="' + fileName + '.vtt" kind="subtitles" srclang="en" label="English" />  '
+        }
+        html += '</video>';
+        $('#video').html(html);
+
+    </script>
+</body>
+</html>

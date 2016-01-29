@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Video Share</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+
+        <div id="file-list" class="list-group">
+
+        </div>
+    </div>
+
+    <div id="entry-template" class="hide">
+        <a href="#url#" class="list-group-item ">
+            <h4 class="list-group-item-heading">#filename#</h4>
+            <p class="list-group-item-text">Play</p>
+        </a>
+    </div>
+    <script>
+        var fileList = <%- fileListJson%>;
+        var temphtml = $('#entry-template').html();
+        var html = '';
+
+        var files = fileList.files;
+        for (var i in files) {
+            var fileName = files[i].name;
+            var vtt = files[i].vtt;
+            var url = "play?file=video/" + fileName;
+            if (vtt) {
+                url += '&vtt=1';
+            }
+            var t = temphtml;
+            t = t.replace('#filename#', fileName);
+            t = t.replace('#url#', url);
+            html += t;
+        }
+
+        $('#file-list').html(html);
+
+    </script>
+</body>
+</html>
